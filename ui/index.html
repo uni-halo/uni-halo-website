@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNI HALO - Coming Soon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { inter: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { DEFAULT: '#c6f91f', dark: '#a8d919' },
+            uh: { blue: '#3B82F6', light: '#60A5FA', deep: '#2563EB', glow: '#93C5FD' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #05080A; color: #fff; overflow-x: hidden; }
+
+    /* 背景网格 */
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* 水波纹动画 */
+    @keyframes ripple {
+      0% { transform: scale(0.8); opacity: 0.4; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+    .ripple-ring {
+      animation: ripple 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    .ripple-ring-delay { animation-delay: 1.3s; }
+    .ripple-ring-delay2 { animation-delay: 2.6s; }
+
+    /* 浮动动画 */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-14px); }
+    }
+    .float-anim { animation: float 5s ease-in-out infinite; }
+
+    /* 呼吸光晕 */
+    @keyframes breathe {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.08); }
+    }
+    .breathe { animation: breathe 4s ease-in-out infinite; }
+
+    /* 渐入 */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.9s ease-out both; }
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+    .delay-4 { animation-delay: 0.6s; }
+    .delay-5 { animation-delay: 0.75s; }
+    .delay-6 { animation-delay: 0.9s; }
+
+    /* 光标闪烁 */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink::after {
+      content: '|';
+      animation: blink 1s step-end infinite;
+      color: #3B82F6;
+      margin-left: 2px;
+      font-weight: 300;
+    }
+
+    /* 粒子 */
+    @keyframes particle-float {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-120px) translateX(30px); opacity: 0; }
+    }
+    .particle {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: rgba(59,130,246,0.6);
+      border-radius: 50%;
+      animation: particle-float 6s ease-in-out infinite;
+    }
+
+    /* 链接hover下划线 */
+    .link-underline {
+      position: relative;
+      display: inline-block;
+    }
+    .link-underline::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: #3B82F6;
+      transition: width 0.3s ease;
+    }
+    .link-underline:hover::after { width: 100%; }
+
+    /* 分隔线渐变 */
+    .divider-gradient {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent);
+    }
+
+    /* Logo光环 */
+    @keyframes logo-halo {
+      0%, 100% { box-shadow: 0 0 40px rgba(59,130,246,0.15), 0 0 80px rgba(59,130,246,0.08); }
+      50% { box-shadow: 0 0 60px rgba(59,130,246,0.25), 0 0 120px rgba(59,130,246,0.12); }
+    }
+    .logo-halo { animation: logo-halo 4s ease-in-out infinite; }
+
+    /* 进度条闪光 */
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* 滚动条 */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #05080A; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+    /* Toast */
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes toast-out {
+      from { opacity: 1; transform: translateY(0) scale(1); }
+      to { opacity: 0; transform: translateY(-10px) scale(0.95); }
+    }
+    .toast-enter { animation: toast-in 0.3s ease-out both; }
+    .toast-exit { animation: toast-out 0.25s ease-in both; }
+  </style>
+</head>
+<body class="min-h-screen bg-grid relative">
+
+  <!-- 全局背景光晕 -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <!-- 中心蓝色光晕 -->
+    <div class="breathe absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+         style="background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, rgba(59,130,246,0.02) 40%, transparent 70%);">
+    </div>
+    <!-- 左上角装饰光 -->
+    <div class="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full"
+         style="background: radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 60%);">
+    </div>
+    <!-- 右下角装饰光 -->
+    <div class="absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full"
+         style="background: radial-gradient(circle, rgba(198,249,31,0.03) 0%, transparent 60%);">
+    </div>
+  </div>
+
+  <!-- 导航栏 -->
+  <nav class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center px-6"
+       style="background: rgba(5,8,10,0.7); backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="max-w-7xl mx-auto w-full flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center bg-white/5">
+          <img src="https://z-cdn-media.chatglm.cn/files/f3732916-ecb3-48ca-adbc-b361abaecadd.jpeg?auth_key=1876872660-4f070b111e0e44bb849e3b67441360aa-0-6ad671a493e0276bcfb492b04659b95d"
+               alt="UNI HALO" class="w-full h-full object-cover" />
+        </div>
+        <span class="text-sm font-medium tracking-wide">UNI HALO</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/uni-halo" target="_blank" rel="noopener"
+           class="flex items-center gap-2 text-xs text-white/50 hover:text-white transition-colors duration-300 link-underline">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">GitHub</span>
+        </a>
+        <a href="#" id="contactNav"
+           class="flex items-center gap-2 text-xs text-white/50 hover:text-white transition-colors duration-300 link-underline">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">联系作者</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主内容 -->
+  <main class="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-16">
+
+    <!-- 水波纹装饰 -->
+    <div class="absolute pointer-events-none" style="top: 50%; left: 50%; transform: translate(-50%, -30%);">
+      <div class="ripple-ring absolute rounded-full border border-uh-blue/20" style="width: 300px; height: 300px; top: -150px; left: -150px;"></div>
+      <div class="ripple-ring ripple-ring-delay absolute rounded-full border border-uh-blue/15" style="width: 300px; height: 300px; top: -150px; left: -150px;"></div>
+      <div class="ripple-ring ripple-ring-delay2 absolute rounded-full border border-uh-blue/10" style="width: 300px; height: 300px; top: -150px; left: -150px;"></div>
+    </div>
+
+    <!-- 粒子装饰 -->
+    <div class="absolute pointer-events-none" style="top: 30%; left: 20%;">
+      <div class="particle" style="animation-delay: 0s;"></div>
+    </div>
+    <div class="absolute pointer-events-none" style="top: 40%; left: 75%;">
+      <div class="particle" style="animation-delay: 2s;"></div>
+    </div>
+    <div class="absolute pointer-events-none" style="top: 55%; left: 30%;">
+      <div class="particle" style="animation-delay: 4s;"></div>
+    </div>
+    <div class="absolute pointer-events-none" style="top: 25%; left: 65%;">
+      <div class="particle" style="animation-delay: 1s;"></div>
+    </div>
+    <div class="absolute pointer-events-none" style="top: 60%; left: 80%;">
+      <div class="particle" style="animation-delay: 3s;"></div>
+    </div>
+
+    <!-- Logo区域 -->
+    <div class="fade-in-up relative mb-10">
+      <div class="float-anim relative">
+        <!-- Logo外光环 -->
+        <div class="absolute -inset-4 rounded-3xl logo-halo opacity-60"></div>
+        <!-- Logo容器 -->
+        <div class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl overflow-hidden"
+             style="background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(5,8,10,0.8)); border: 1px solid rgba(59,130,246,0.2);">
+          <img src="https://z-cdn-media.chatglm.cn/files/f3732916-ecb3-48ca-adbc-b361abaecadd.jpeg?auth_key=1876872660-4f070b111e0e44bb849e3b67441360aa-0-6ad671a493e0276bcfb492b04659b95d"
+               alt="UNI HALO Logo - 蓝鲸"
+               class="w-full h-full object-cover"
+               style="filter: drop-shadow(0 0 20px rgba(59,130,246,0.3));" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 即将上线徽章 -->
+    <div class="fade-in-up delay-1 mb-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase"
+           style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: #60A5FA;">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-uh-blue opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-uh-blue"></span>
+        </span>
+        Coming Soon
+      </div>
+    </div>
+
+    <!-- 主标题 -->
+    <h1 class="fade-in-up delay-2 text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-tighter text-center leading-[1.05] mb-4"
+        style="background: linear-gradient(to bottom, #FFFFFF 30%, rgba(255,255,255,0.6) 100%);
+               -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+      UNI HALO
+    </h1>
+
+    <!-- 版本号 -->
+    <div class="fade-in-up delay-2 mb-8 flex items-center gap-3">
+      <span class="text-xs font-medium px-2.5 py-1 rounded-md"
+            style="background: rgba(198,249,31,0.1); color: #c6f91f; border: 1px solid rgba(198,249,31,0.15);">
+        v2.0.0
+      </span>
+      <span class="text-xs text-white/30">—</span>
+      <span class="text-xs text-white/40">全新版本，即将发布</span>
+    </div>
+
+    <!-- 描述 -->
+    <p class="fade-in-up delay-3 max-w-xl text-center text-sm sm:text-base leading-relaxed mb-10"
+       style="color: rgba(255,255,255,0.55);">
+      一款基于 <span class="text-white/80 font-medium">UniApp</span> 与 <span class="text-white/80 font-medium">Halo</span> 构建的开源博客/内容客户端，<br class="hidden sm:block" />
+      优雅、轻量、跨平台，让你的内容触达每一个角落。
+    </p>
+
+    <!-- 链接区域 -->
+    <div class="fade-in-up delay-4 flex flex-wrap items-center justify-center gap-4 mb-16">
+      <!-- 仓库链接 -->
+      <a href="https://github.com/uni-halo" target="_blank" rel="noopener"
+         class="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
+         style="background: #FFFFFF; color: #05080A; box-shadow: 0 0 20px rgba(255,255,255,0.15);"
+         onmouseenter="this.style.transform='translateY(-2px) scale(1.02)'; this.style.boxShadow='0 0 35px rgba(255,255,255,0.25)';"
+         onmouseleave="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 20px rgba(255,255,255,0.15)';">
+        <i data-lucide="github" class="w-4 h-4"></i>
+        访问仓库
+        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+      </a>
+
+      <!-- 作者链接 -->
+      <a href="https://github.com/9sy" target="_blank" rel="noopener"
+         class="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
+         style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25); color: #60A5FA;"
+         onmouseenter="this.style.background='rgba(59,130,246,0.15)'; this.style.transform='translateY(-2px) scale(1.02)'; this.style.boxShadow='0 0 30px rgba(59,130,246,0.15)';"
+         onmouseleave="this.style.background='rgba(59,130,246,0.1)'; this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none';">
+        <i data-lucide="user" class="w-4 h-4"></i>
+        关注作者
+        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+      </a>
+
+      <!-- 文档链接 -->
+      <a href="#" id="docsBtn"
+         class="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
+         style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7);"
+         onmouseenter="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.2)'; this.style.transform='translateY(-2px) scale(1.02)';"
+         onmouseleave="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(0) scale(1)';">
+        <i data-lucide="book-open" class="w-4 h-4"></i>
+        开发文档
+        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+      </a>
+    </div>
+
+    <!-- 进度/状态条 -->
+    <div class="fade-in-up delay-5 w-full max-w-md mb-16">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[10px] uppercase tracking-widest text-white/30 font-medium">开发进度</span>
+        <span class="text-[10px] uppercase tracking-widest font-medium" style="color: #60A5FA;">85%</span>
+      </div>
+      <div class="relative h-1 rounded-full overflow-hidden" style="background: rgba(255,255,255,0.05);">
+        <div class="absolute inset-y-0 left-0 rounded-full" style="width: 85%; background: linear-gradient(90deg, #2563EB, #3B82F6, #60A5FA);">
+        </div>
+        <div class="absolute inset-y-0 left-0 rounded-full overflow-hidden" style="width: 85%;">
+          <div class="absolute inset-0" style="background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shimmer 2.5s infinite;"></div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between mt-2">
+        <span class="text-[10px] text-white/20">最后更新：2025-01</span>
+        <span class="text-[10px] text-white/20 cursor-blink">准备发布</span>
+      </div>
+    </div>
+
+    <!-- 特性卡片 -->
+    <div class="fade-in-up delay-6 w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-4 mb-20">
+      <div class="group p-5 rounded-xl transition-all duration-300"
+           style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);"
+           onmouseenter="this.style.background='rgba(255,255,255,0.04)'; this.style.borderColor='rgba(59,130,246,0.15)'; this.style.transform='translateY(-2px)';"
+           onmouseleave="this.style.background='rgba(255,255,255,0.02)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
+             style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.15);">
+          <i data-lucide="smartphone" class="w-4 h-4" style="color: #60A5FA;"></i>
+        </div>
+        <h3 class="text-sm font-medium text-white/90 mb-1">跨平台</h3>
+        <p class="text-xs leading-relaxed" style="color: rgba(255,255,255,0.4);">一套代码，多端运行<br/>iOS / Android / H5 / 小程序</p>
+      </div>
+
+      <div class="group p-5 rounded-xl transition-all duration-300"
+           style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);"
+           onmouseenter="this.style.background='rgba(255,255,255,0.04)'; this.style.borderColor='rgba(198,249,31,0.15)'; this.style.transform='translateY(-2px)';"
+           onmouseleave="this.style.background='rgba(255,255,255,0.02)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
+             style="background: rgba(198,249,31,0.1); border: 1px solid rgba(198,249,31,0.15);">
+          <i data-lucide="zap" class="w-4 h-4" style="color: #c6f91f;"></i>
+        </div>
+        <h3 class="text-sm font-medium text-white/90 mb-1">轻量高效</h3>
+        <p class="text-xs leading-relaxed" style="color: rgba(255,255,255,0.4);">极致性能优化<br/>秒级加载，流畅体验</p>
+      </div>
+
+      <div class="group p-5 rounded-xl transition-all duration-300"
+           style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);"
+           onmouseenter="this.style.background='rgba(255,255,255,0.04)'; this.style.borderColor='rgba(59,130,246,0.15)'; this.style.transform='translateY(-2px)';"
+           onmouseleave="this.style.background='rgba(255,255,255,0.02)'; this.style.borderColor='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
+             style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.15);">
+          <i data-lucide="code-2" class="w-4 h-4" style="color: #60A5FA;"></i>
+        </div>
+        <h3 class="text-sm font-medium text-white/90 mb-1">开源免费</h3>
+        <p class="text-xs leading-relaxed" style="color: rgba(255,255,255,0.4);">MIT 协议开源<br/>自由使用，社区驱动</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 pb-8 pt-4">
+    <div class="divider-gradient max-w-3xl mx-auto mb-6"></div>
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4 text-[11px]" style="color: rgba(255,255,255,0.25);">
+        <span>© 2025 UNI HALO</span>
+        <span>·</span>
+        <span>All rights reserved</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/uni-halo" target="_blank" rel="noopener"
+           class="text-white/20 hover:text-white/60 transition-colors duration-300">
+          <i data-lucide="github" class="w-4 h-4"></i>
+        </a>
+        <a href="#" id="footerMail"
+           class="text-white/20 hover:text-white/60 transition-colors duration-300">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+        </a>
+        <a href="#"
+           class="text-white/20 hover:text-white/60 transition-colors duration-300">
+          <i data-lucide="rss" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast容器 -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    // 初始化Lucide图标
+    lucide.createIcons();
+
+    // Toast功能
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast-enter pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-medium';
+      toast.style.cssText = `
+        background: rgba(20,25,30,0.95);
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(20px);
+        color: rgba(255,255,255,0.8);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        min-width: 220px;
+      `;
+      const iconMap = { info: 'ℹ️', success: '✅', warning: '⚠️' };
+      toast.innerHTML = `<span>${iconMap[type] || 'ℹ️'}</span><span>${message}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove('toast-enter');
+        toast.classList.add('toast-exit');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // 文档按钮
+    document.getElementById('docsBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('文档正在编写中，敬请期待 📖', 'info');
+    });
+
+    // 联系按钮
+    document.getElementById('contactNav').addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('联系方式即将公布 ✉️', 'info');
+    });
+
+    document.getElementById('footerMail').addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('联系方式即将公布 ✉️', 'info');
+    });
+  </script>
+</body>
+</html>
