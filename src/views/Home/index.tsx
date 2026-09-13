@@ -136,6 +136,16 @@ export const Index = () => {
             </div>
           </div>
           <div className="shrink-0 flex items-center gap-4">
+            <span
+                className="text-xs font-medium px-3 py-1 rounded-md"
+                style={{
+                  background: "rgba(198,249,31,0.1)",
+                  color: "#c6f91f",
+                  border: "1px solid rgba(198,249,31,0.15)",
+                }}
+              >
+                v3.x
+              </span>
             <a
               href="https://github.com/uni-halo"
               target="_blank"
@@ -161,7 +171,7 @@ export const Index = () => {
       </nav>
 
       {/* 主内容 */}
-      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-16">
+      <main className="relative z-10 min-h-[90vh] flex flex-col items-center justify-center px-6 pt-16">
         {/* 水波纹装饰 */}
         <div
           className="absolute pointer-events-none"
@@ -261,7 +271,7 @@ export const Index = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C6F91F] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C6F91F]"></span>
             </span>
-            Coming Soon
+            v3.x release
           </div>
         </div>
 
@@ -281,18 +291,7 @@ export const Index = () => {
 
         {/* 版本号 */}
         <div className="fade-in-up delay-2 mb-8 flex items-center gap-3">
-          <span
-            className="text-xs font-medium px-2.5 py-1 rounded-md"
-            style={{
-              background: "rgba(198,249,31,0.1)",
-              color: "#c6f91f",
-              border: "1px solid rgba(198,249,31,0.15)",
-            }}
-          >
-            v3.x
-          </span>
-          <span className="text-xs text-white/30">—</span>
-          <span className="text-xs text-white/40">全新版本，即将发布</span>
+          <span className="text-xs text-white">全新版本，即将发布</span>
         </div>
 
         <div className="fade-in-up mb-6">
@@ -320,7 +319,7 @@ export const Index = () => {
         >
           一款基于 <span className="text-[#2B9939] font-medium">UniApp</span> 与{" "}
           <span className="text-[#0A7FF3] font-medium">Halo</span>{" "}
-          构建的开源博客/内容客户端，
+          构建的多端开源博客/内容客户端，
           <br className="hidden sm:block" />
           优雅、轻量、跨平台，让你的内容触达每一个角落。
         </p>
@@ -587,42 +586,17 @@ export const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="hidden relative z-10 pb-8 pt-4">
+      <footer className="relative z-10 pb-8 pt-4">
         <div className="divider-gradient max-w-3xl mx-auto mb-6"></div>
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-center gap-4">
           <div
             className="flex items-center gap-4 text-[11px]"
             style={{ color: "rgba(255,255,255,0.25)" }}
           >
-            <span>© 2025 UNI HALO</span>
+            <span>小莫唐尼 © 2026 UNI HALO</span>
             <span>·</span>
             <span>All rights reserved</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/uni-halo"
-              target="_blank"
-              rel="noopener"
-              aria-label="GitHub"
-              className="text-white/20 hover:text-[#C6F91F] transition-colors duration-300"
-            >
-              <GitFork className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              id="footerMail"
-              onClick={handleContactClick}
-              className="text-white/20 hover:text-[#C6F91F] transition-colors duration-300"
-            >
-              <Mail className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              className="text-white/20 hover:text-[#C6F91F] transition-colors duration-300"
-            >
-              <Rss className="w-4 h-4" />
-            </a>
-          </div>
+          </div> 
         </div>
       </footer>
 
@@ -735,7 +709,6 @@ export const Index = () => {
         /* 链接hover下划线 */
         .link-underline {
           position: relative;
-          display: inline-block;
         }
         .link-underline::after {
           content: '';
