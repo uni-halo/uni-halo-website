@@ -227,14 +227,22 @@ export const Index = () => {
 
         {/* Logo区域 */}
         <div className="fade-in-up relative mb-10">
-          <div className="float-anim relative"> 
-            {/* Logo容器 */}
-            <div className="bg-[#c6f91f] logo-halo relative w-32 h-32 sm:w-40 sm:h-40 overflow-hidden">
-              <img
-                src={logo}
-                alt="UNI HALO"
-                className="w-full h-full object-cover"
-              />
+          <div className="float-anim relative">
+            {/* 文档站同款：Logo 背景双色流动渐变 + 大模糊光晕（叠加层） */}
+            <div className="logo-aurora" aria-hidden="true">
+              <div className="logo-aurora-blob" />
+              <div className="logo-aurora-blob logo-aurora-blob--alt" />
+            </div>
+
+            {/* Logo容器（显式 z-10，确保压在光晕之上） */}
+            <div className="relative z-10 w-32 h-32 sm:w-40 sm:h-40">
+              <div className="bg-[#c6f91f] logo-halo absolute inset-0 overflow-hidden">
+                <img
+                  src={logo}
+                  alt="UNI HALO"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -718,6 +726,85 @@ export const Index = () => {
           animation: logo-halo 4s ease-in-out infinite;
           border-radius: 40px;
          }
+
+        /* ===== Logo 背景效果：移植自文档站首页 hero logo ===== */
+        /* 文档站：--vp-home-hero-image-background-image: linear-gradient(-45deg,
+           var(--rainbow-prev) 30%, var(--rainbow-next));
+           --vp-home-hero-image-filter: blur(120px);
+           配合 rainbow.css 的 @keyframes rainbow，让两个色标每 8s 循环流转。
+           此处按官网用色（柠檬绿 #c6f91f ↔ 深绿 #2b9939，与文档站一致）原样复刻。 */
+
+        /* 注册色标动画属性：让浏览器在关键帧之间平滑插值（不支持时自动降级为逐帧跳变） */
+        @property --rainbow-prev {
+          syntax: '<color>';
+          inherits: true;
+          initial-value: #c6f91f;
+        }
+        @property --rainbow-next {
+          syntax: '<color>';
+          inherits: true;
+          initial-value: #2b9939;
+        }
+
+        /* 品牌色标流动动画（对应文档站 rainbow.css 的 @keyframes rainbow） */
+        @keyframes rainbow {
+          0%    { --rainbow-prev: #c6f91f; --rainbow-next: #2b9939; }
+          12.5% { --rainbow-prev: #bdf22a; --rainbow-next: #22a04b; }
+          25%   { --rainbow-prev: #a8ea35; --rainbow-next: #1ba75e; }
+          37.5% { --rainbow-prev: #8fe040; --rainbow-next: #17a872; }
+          50%   { --rainbow-prev: #79d54a; --rainbow-next: #1aa585; }
+          62.5% { --rainbow-prev: #8fdd42; --rainbow-next: #17a872; }
+          75%   { --rainbow-prev: #a8ea35; --rainbow-next: #1ba75e; }
+          87.5% { --rainbow-prev: #bdf22a; --rainbow-next: #22a04b; }
+          100%  { --rainbow-prev: #c6f91f; --rainbow-next: #2b9939; }
+        }
+
+        /* 光晕容器：定位在 Logo 背后并向外扩散 */
+        .logo-aurora {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          /* 让模糊光晕向外溢出，不被容器裁掉 */
+          margin: -34%;
+          border-radius: 9999px;
+          animation: rainbow 8s linear infinite;
+          /* 主光晕：文档站同款 -45° 双色渐变 + 大模糊 */
+          background-image: linear-gradient(-45deg, var(--rainbow-prev) 30%, var(--rainbow-next));
+          filter: blur(120px);
+        }
+
+        /* 第二层：同渐变反向旋转 + 呼吸，增加层次与冲击力 */
+        .logo-aurora-blob {
+          position: absolute;
+          inset: 14%;
+          border-radius: 9999px;
+          background-image: linear-gradient(-45deg, var(--rainbow-next) 20%, var(--rainbow-prev));
+          filter: blur(60px);
+          opacity: 0.85;
+        }
+        .logo-aurora-blob--alt {
+          inset: 22%;
+          background-image: linear-gradient(135deg, var(--rainbow-prev) 10%, var(--rainbow-next) 90%);
+          filter: blur(38px);
+          animation: logo-aurora-pulse 6s ease-in-out infinite;
+        }
+        @keyframes logo-aurora-pulse {
+          0%, 100% { opacity: 0.5; transform: scale(0.94); }
+          50%      { opacity: 0.95; transform: scale(1.08); }
+        }
+
+        /* 小屏收敛：避免大模糊在窄屏溢出影响布局 */
+        @media (max-width: 640px) {
+          .logo-aurora { filter: blur(80px); margin: -28%; }
+        }
+
+        /* Safari / Firefox 对大面积渐变 + 滤镜性能较差（同文档站处理），降级为静态柔光 */
+        @supports (-webkit-hyphens: none) or (-moz-appearance: none) {
+          .logo-aurora,
+          .logo-aurora-blob,
+          .logo-aurora-blob--alt { filter: blur(40px); }
+        }
 
         /* 进度条闪光 */
         @keyframes shimmer {
