@@ -37,15 +37,7 @@ export const Index = () => {
       setToasts((prev) => prev.filter((toast) => toast.id !== newToast.id));
     }, 3000);
   };
-
-  /**
-   * 处理文档按钮点击
-   */
-  const handleDocsClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.open("https://uni-halo-doc.ialley.cn/", "_blank");
-  };
-
+ 
   return (
     <div className="min-h-screen bg-[#05080A] text-white overflow-hidden relative">
       {/* 背景网格 */}
@@ -381,7 +373,6 @@ export const Index = () => {
           <a
             href="https://uni-halo-doc.ialley.cn"
             id="docsBtn"
-            onClick={handleDocsClick}
             className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
             style={{
               background: "rgba(255,255,255,0.05)",
