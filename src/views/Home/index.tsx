@@ -10,6 +10,7 @@ import {
   Zap,
   Code2,
   GitFork,
+  ChevronDown,
 } from "lucide-react";
 
 /**
@@ -22,6 +23,12 @@ export const Index = () => {
   const [toastId, setToastId] = useState(0);
   const [navScrolled, setNavScrolled] = useState(false);
   const cursorLightRef = useRef<HTMLDivElement>(null);
+  const showcaseRef = useRef<HTMLDivElement>(null);
+
+  // 滚动到功能预览模块
+  const scrollToShowcase = () => {
+    showcaseRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   // 滚动后给导航栏加一层遮罩，保证文字在光晕前依然清晰
   useEffect(() => {
@@ -608,10 +615,40 @@ export const Index = () => {
             </p>
           </div>
         </div>
+
+        {/* 向下滚动提示：告知首屏下方还有功能预览 */}
+        <button
+          type="button"
+          onClick={scrollToShowcase}
+          className="fade-in-up delay-6 group flex flex-col items-center gap-2 mt-14 cursor-pointer"
+          aria-label="向下滚动查看功能预览"
+        >
+          <span
+            className="text-[10px] uppercase tracking-[0.22em] transition-colors duration-300 group-hover:text-[#C6F91F]"
+            style={{ color: "rgba(255,255,255,0.3)" }}
+          >
+            向下滚动
+          </span>
+          <span
+            className="w-[26px] h-[42px] rounded-full flex justify-center pt-[8px] transition-colors duration-300 group-hover:border-[#C6F91F]/50"
+            style={{ border: "1px solid rgba(255,255,255,0.16)" }}
+          >
+            <span
+              className="w-[3px] h-[7px] rounded-full scroll-hint-dot"
+              style={{ background: "#C6F91F" }}
+            />
+          </span>
+          <ChevronDown
+            className="w-4 h-4 transition-all duration-300 group-hover:translate-y-0.5"
+            style={{ color: "rgba(255,255,255,0.28)" }}
+          />
+        </button>
       </main>
 
-      {/* 功能模块展示：左预览 + 右模块切换 */}
-      <ShowcaseSection />
+      {/* 功能模块展示：左预览 + 右全部页面 */}
+      <div ref={showcaseRef} className="pt-20 sm:pt-28">
+        <ShowcaseSection />
+      </div>
 
       {/* Footer */}
       <footer className="relative z-10 pb-8 pt-4">
@@ -1020,6 +1057,17 @@ export const Index = () => {
         .showcase-scroll::-webkit-scrollbar { width: 6px; }
         .showcase-scroll::-webkit-scrollbar-thumb { background: rgba(198,249,31,0.22); border-radius: 999px; }
         .showcase-scroll::-webkit-scrollbar-track { background: transparent; }
+
+        /* 向下滚动提示：小圆点上下浮动 */
+        @keyframes scroll-hint {
+          0%, 100% { transform: translateY(0); opacity: 1; }
+          50%      { transform: translateY(13px); opacity: 0.4; }
+        }
+        .scroll-hint-dot { animation: scroll-hint 1.8s ease-in-out infinite; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .scroll-hint-dot { animation: none; }
+        }
       `}</style>
     </div>
   );
