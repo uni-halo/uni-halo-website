@@ -156,24 +156,20 @@ const TabBadge = () => (
   </span>
 );
 
-/** 截图，加载失败时回退到占位 */
+/** 截图：加载失败时回退到「图标 + 名称 + 描述」占位 */
 const Shot = ({
   page,
-  module,
   className,
-  onFail,
   imgClassName,
 }: {
   page: ShowcasePage;
-  module: ShowcaseModule;
   className?: string;
-  onFail?: (failed: boolean) => void;
   imgClassName?: string;
 }) => {
   const [failed, setFailed] = useState(false);
 
   if (failed) {
-    return <Placeholder page={page} module={module} className={className} />;
+    return <Placeholder page={page} className={className} />;
   }
 
   return (
@@ -182,10 +178,7 @@ const Shot = ({
       alt={page.name}
       loading="lazy"
       className={imgClassName}
-      onError={() => {
-        setFailed(true);
-        onFail?.(true);
-      }}
+      onError={() => setFailed(true)}
     />
   );
 };
@@ -227,13 +220,7 @@ export const Placeholder = ({
 );
 
 /** 手机样机：展示当前选中页面 */
-const PhonePreview = ({
-  page,
-  module,
-}: {
-  page: ShowcasePage;
-  module: ShowcaseModule;
-}) => (
+const PhonePreview = ({ page }: { page: ShowcasePage }) => (
   <div
     className="relative w-[322px] h-[660px] rounded-[44px] p-[11px] flex-none"
     style={{
@@ -281,7 +268,6 @@ const PhonePreview = ({
       <div className="relative flex-1 min-h-0 overflow-hidden">
         <Shot
           page={page}
-          module={module}
           imgClassName="w-full h-full object-cover object-top block"
           className="absolute inset-0"
         />
@@ -346,7 +332,7 @@ export const ShowcaseSection = () => {
         >
           {/* 左：手机样机 */}
           <div className="flex flex-col items-center gap-[18px] lg:sticky lg:top-6">
-            <PhonePreview page={currentPage} module={currentModule} />
+            <PhonePreview page={currentPage} />
             <div className="text-center max-w-[340px]">
               <div className="text-base font-semibold text-white/90 mb-1.5 flex items-center justify-center gap-2">
                 {currentPage.name}
@@ -446,20 +432,17 @@ export const ShowcaseSection = () => {
                         }}
                       >
                         <span
-                          className="w-9 h-9 rounded-[9px] flex-none overflow-hidden flex items-center justify-center"
+                          className="w-9 h-9 rounded-[9px] flex-none flex items-center justify-center"
                           style={{
-                            background: "#0B0F11",
-                            border: `1px solid ${isOn ? "rgba(198,249,31,0.4)" : "rgba(255,255,255,0.08)"}`,
-                            color: isOn ? "#C6F91F" : "rgba(255,255,255,0.5)",
+                            color: isOn ? "#C6F91F" : "rgba(198,249,31,0.55)",
+                            background: isOn
+                              ? "rgba(198,249,31,0.14)"
+                              : "rgba(198,249,31,0.06)",
+                            border: `1px solid ${isOn ? "rgba(198,249,31,0.4)" : "rgba(198,249,31,0.14)"}`,
                             boxShadow: isOn ? "0 0 18px -6px rgba(198,249,31,0.5)" : "none",
                           }}
                         >
-                          <Shot
-                            page={p}
-                            module={m}
-                            imgClassName="w-full h-full object-cover object-top"
-                            className="w-full h-full"
-                          />
+                          <Icon name={p.icon} size={17} />
                         </span>
                         <span className="flex-1 min-w-0">
                           <span
