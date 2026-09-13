@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import logo from "@/assets/logo.png";
-import githubIcon from "@/assets/fonticons/github.svg";
 import {
   Mail,
   ArrowUpRight,
@@ -10,6 +9,7 @@ import {
   Zap,
   Code2,
   Rss,
+  GitFork,
 } from "lucide-react";
 
 /**
@@ -62,12 +62,12 @@ export const Index = () => {
 
       {/* 全局背景光晕 */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* 中心蓝色光晕 */}
+        {/* 中心荧光绿光晕 */}
         <div
           className="breathe absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(59,130,246,0.08) 0%, rgba(59,130,246,0.02) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(198,249,31,0.08) 0%, rgba(198,249,31,0.02) 40%, transparent 70%)",
           }}
         />
         {/* 左上角装饰光 */}
@@ -75,7 +75,7 @@ export const Index = () => {
           className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 60%)",
+              "radial-gradient(circle, rgba(198,249,31,0.05) 0%, transparent 60%)",
           }}
         />
         {/* 右下角装饰光 */}
@@ -83,7 +83,7 @@ export const Index = () => {
           className="absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(198,249,31,0.03) 0%, transparent 60%)",
+              "radial-gradient(circle, rgba(198,249,31,0.04) 0%, transparent 60%)",
           }}
         />
       </div>
@@ -99,7 +99,7 @@ export const Index = () => {
       >
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl overflow-hidden flex items-center justify-center bg-white/5">
+            <div className="w-10 h-10 overflow-hidden flex items-center justify-center">
               <img
                 src={logo}
                 alt="UNI HALO"
@@ -140,25 +140,18 @@ export const Index = () => {
               href="https://github.com/uni-halo"
               target="_blank"
               rel="noopener"
-              className="flex items-center justify-center gap-2 text-xs text-center text-white/50 hover:text-white transition-colors duration-300 link-underline"
+              aria-label="GitHub"
+              className="flex items-center justify-center gap-2 text-xs text-center text-white/50 hover:text-[#C6F91F] transition-colors duration-300 link-underline"
             >
-              <svg
-                role="img"
-                className="w-4 h-4"
-                fill="rgba(255,255,255,0.5)"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>GitHub</title>
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-              </svg>
+              <GitFork className="w-4 h-4" />
               <span className="hidden sm:inline">GitHub</span>
             </a>
             <a
               href="https://www.xiaoxiaomo.cn"
               target="_blank"
               rel="noopener"
-              className="flex items-center gap-2 text-xs text-white/50 hover:text-white transition-colors duration-300 link-underline"
+              aria-label="联系作者"
+              className="flex items-center gap-2 text-xs text-white/50 hover:text-[#C6F91F] transition-colors duration-300 link-underline"
             >
               <Mail className="w-4 h-4" />
               <span className="hidden sm:inline">联系作者</span>
@@ -179,7 +172,7 @@ export const Index = () => {
           }}
         >
           <div
-            className="ripple-ring absolute rounded-full border border-[#3B82F6]/20"
+            className="ripple-ring absolute rounded-full border border-[#C6F91F]/20"
             style={{
               width: "300px",
               height: "300px",
@@ -188,7 +181,7 @@ export const Index = () => {
             }}
           ></div>
           <div
-            className="ripple-ring ripple-ring-delay absolute rounded-full border border-[#3B82F6]/15"
+            className="ripple-ring ripple-ring-delay absolute rounded-full border border-[#C6F91F]/15"
             style={{
               width: "300px",
               height: "300px",
@@ -197,7 +190,7 @@ export const Index = () => {
             }}
           ></div>
           <div
-            className="ripple-ring ripple-ring-delay2 absolute rounded-full border border-[#3B82F6]/10"
+            className="ripple-ring ripple-ring-delay2 absolute rounded-full border border-[#C6F91F]/10"
             style={{
               width: "300px",
               height: "300px",
@@ -241,19 +234,13 @@ export const Index = () => {
 
         {/* Logo区域 */}
         <div className="fade-in-up relative mb-10">
-          <div className="float-anim relative">
-            {/* Logo外光环 */}
-            <div className="absolute -inset-4 rounded-3xl logo-halo opacity-60"></div>
+          <div className="float-anim relative"> 
             {/* Logo容器 */}
-            <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl overflow-hidden">
+            <div className="bg-[#c6f91f] logo-halo relative w-32 h-32 sm:w-40 sm:h-40 overflow-hidden">
               <img
                 src={logo}
                 alt="UNI HALO"
                 className="w-full h-full object-cover"
-                style={{
-                  filter: "drop-shadow(0 0 20px rgba(59,130,246,0.3))",
-                  border: "1px solid rgba(59,130,246,0.2)",
-                }}
               />
             </div>
           </div>
@@ -264,14 +251,15 @@ export const Index = () => {
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase"
             style={{
-              background: "rgba(59,130,246,0.1)",
-              border: "1px solid rgba(59,130,246,0.2)",
-              color: "#60A5FA",
+              background: "rgba(198,249,31,0.1)",
+              border: "1px solid rgba(198,249,31,0.2)",
+              color: "#C6F91F",
+              boxShadow: "0 0 20px rgba(198,249,31,0.08)",
             }}
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3B82F6] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3B82F6]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C6F91F] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C6F91F]"></span>
             </span>
             Coming Soon
           </div>
@@ -314,9 +302,10 @@ export const Index = () => {
             rel="noopener"
             className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
             style={{
-              background: "rgba(59,130,246,0.1)",
-              border: "1px solid rgba(59,130,246,0.25)",
-              color: "#60A5FA",
+              background: "rgba(198,249,31,0.1)",
+              border: "1px solid rgba(198,249,31,0.25)",
+              color: "#C6F91F",
+              boxShadow: "0 0 20px rgba(198,249,31,0.06)",
             }}
           >
             Halo 插件市场
@@ -343,24 +332,27 @@ export const Index = () => {
             href="https://github.com/uni-halo"
             target="_blank"
             rel="noopener"
-            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
+            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-semibold transition-all duration-300"
             style={{
-              background: "#FFFFFF",
+              background: "#C6F91F",
               color: "#05080A",
-              boxShadow: "0 0 20px rgba(255,255,255,0.15)",
+              boxShadow:
+                "0 0 25px rgba(198,249,31,0.25), 0 4px 16px rgba(0,0,0,0.3)",
             }}
             onMouseEnter={(e) => {
               const target = e.currentTarget as HTMLElement;
               target.style.transform = "translateY(-2px) scale(1.02)";
-              target.style.boxShadow = "0 0 35px rgba(255,255,255,0.25)";
+              target.style.boxShadow =
+                "0 0 45px rgba(198,249,31,0.45), 0 8px 24px rgba(0,0,0,0.35)";
             }}
             onMouseLeave={(e) => {
               const target = e.currentTarget as HTMLElement;
               target.style.transform = "translateY(0) scale(1)";
-              target.style.boxShadow = "0 0 20px rgba(255,255,255,0.15)";
+              target.style.boxShadow =
+                "0 0 25px rgba(198,249,31,0.25), 0 4px 16px rgba(0,0,0,0.3)";
             }}
           >
-            <img src={githubIcon} alt="GitHub" className="w-4 h-4" />
+            <GitFork className="w-4 h-4" />
             访问仓库
             <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
@@ -372,19 +364,19 @@ export const Index = () => {
             rel="noopener"
             className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
             style={{
-              background: "rgba(59,130,246,0.1)",
-              border: "1px solid rgba(59,130,246,0.25)",
-              color: "#60A5FA",
+              background: "rgba(198,249,31,0.1)",
+              border: "1px solid rgba(198,249,31,0.25)",
+              color: "#C6F91F",
             }}
             onMouseEnter={(e) => {
               const target = e.currentTarget as HTMLElement;
-              target.style.background = "rgba(59,130,246,0.15)";
+              target.style.background = "rgba(198,249,31,0.15)";
               target.style.transform = "translateY(-2px) scale(1.02)";
-              target.style.boxShadow = "0 0 30px rgba(59,130,246,0.15)";
+              target.style.boxShadow = "0 0 35px rgba(198,249,31,0.2)";
             }}
             onMouseLeave={(e) => {
               const target = e.currentTarget as HTMLElement;
-              target.style.background = "rgba(59,130,246,0.1)";
+              target.style.background = "rgba(198,249,31,0.1)";
               target.style.transform = "translateY(0) scale(1)";
               target.style.boxShadow = "none";
             }}
@@ -396,7 +388,7 @@ export const Index = () => {
 
           {/* 文档链接 */}
           <a
-            href="#"
+            href="https://uni-halo.ialley.cn/docs"
             id="docsBtn"
             onClick={handleDocsClick}
             className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
@@ -407,14 +399,16 @@ export const Index = () => {
             }}
             onMouseEnter={(e) => {
               const target = e.currentTarget as HTMLElement;
-              target.style.background = "rgba(255,255,255,0.08)";
-              target.style.borderColor = "rgba(255,255,255,0.2)";
+              target.style.background = "rgba(198,249,31,0.08)";
+              target.style.borderColor = "rgba(198,249,31,0.25)";
+              target.style.color = "#C6F91F";
               target.style.transform = "translateY(-2px) scale(1.02)";
             }}
             onMouseLeave={(e) => {
               const target = e.currentTarget as HTMLElement;
               target.style.background = "rgba(255,255,255,0.05)";
               target.style.borderColor = "rgba(255,255,255,0.1)";
+              target.style.color = "rgba(255,255,255,0.7)";
               target.style.transform = "translateY(0) scale(1)";
             }}
           >
@@ -432,7 +426,7 @@ export const Index = () => {
             </span>
             <span
               className="text-[10px] uppercase tracking-widest font-medium"
-              style={{ color: "#60A5FA" }}
+              style={{ color: "#C6F91F" }}
             >
               85%
             </span>
@@ -445,7 +439,8 @@ export const Index = () => {
               className="absolute inset-y-0 left-0 rounded-full"
               style={{
                 width: "85%",
-                background: "linear-gradient(90deg, #2563EB, #3B82F6, #60A5FA)",
+                background:
+                  "linear-gradient(90deg, #9BD61A, #C6F91F, #E4FF70)",
               }}
             ></div>
             <div
@@ -481,7 +476,7 @@ export const Index = () => {
             onMouseEnter={(e) => {
               const target = e.currentTarget as HTMLElement;
               target.style.background = "rgba(255,255,255,0.04)";
-              target.style.borderColor = "rgba(59,130,246,0.15)";
+              target.style.borderColor = "rgba(198,249,31,0.15)";
               target.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
@@ -494,11 +489,11 @@ export const Index = () => {
             <div
               className="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
               style={{
-                background: "rgba(59,130,246,0.1)",
-                border: "1px solid rgba(59,130,246,0.15)",
+                background: "rgba(198,249,31,0.1)",
+                border: "1px solid rgba(198,249,31,0.15)",
               }}
             >
-              <Smartphone className="w-4 h-4" style={{ color: "#60A5FA" }} />
+              <Smartphone className="w-4 h-4" style={{ color: "#C6F91F" }} />
             </div>
             <h3 className="text-sm font-medium text-white/90 mb-1">跨平台</h3>
             <p
@@ -559,7 +554,7 @@ export const Index = () => {
             onMouseEnter={(e) => {
               const target = e.currentTarget as HTMLElement;
               target.style.background = "rgba(255,255,255,0.04)";
-              target.style.borderColor = "rgba(59,130,246,0.15)";
+              target.style.borderColor = "rgba(198,249,31,0.15)";
               target.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
@@ -572,11 +567,11 @@ export const Index = () => {
             <div
               className="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
               style={{
-                background: "rgba(59,130,246,0.1)",
-                border: "1px solid rgba(59,130,246,0.15)",
+                background: "rgba(198,249,31,0.1)",
+                border: "1px solid rgba(198,249,31,0.15)",
               }}
             >
-              <Code2 className="w-4 h-4" style={{ color: "#60A5FA" }} />
+              <Code2 className="w-4 h-4" style={{ color: "#C6F91F" }} />
             </div>
             <h3 className="text-sm font-medium text-white/90 mb-1">开源免费</h3>
             <p
@@ -608,21 +603,22 @@ export const Index = () => {
               href="https://github.com/uni-halo"
               target="_blank"
               rel="noopener"
-              className="text-white/20 hover:text-white/60 transition-colors duration-300"
+              aria-label="GitHub"
+              className="text-white/20 hover:text-[#C6F91F] transition-colors duration-300"
             >
-              <img src={githubIcon} alt="GitHub" className="w-4 h-4" />
+              <GitFork className="w-4 h-4" />
             </a>
             <a
               href="#"
               id="footerMail"
               onClick={handleContactClick}
-              className="text-white/20 hover:text-white/60 transition-colors duration-300"
+              className="text-white/20 hover:text-[#C6F91F] transition-colors duration-300"
             >
               <Mail className="w-4 h-4" />
             </a>
             <a
               href="#"
-              className="text-white/20 hover:text-white/60 transition-colors duration-300"
+              className="text-white/20 hover:text-[#C6F91F] transition-colors duration-300"
             >
               <Rss className="w-4 h-4" />
             </a>
@@ -638,10 +634,11 @@ export const Index = () => {
             className="toast-enter pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-medium"
             style={{
               background: "rgba(20,25,30,0.95)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              border: "1px solid rgba(198,249,31,0.12)",
               backdropFilter: "blur(20px)",
               color: "rgba(255,255,255,0.8)",
-              boxShadow: "0 10px 40px rgba(0,0,0,0.4)",
+              boxShadow:
+                "0 10px 40px rgba(0,0,0,0.4), 0 0 20px rgba(198,249,31,0.05)",
               minWidth: "220px",
             }}
           >
@@ -715,7 +712,7 @@ export const Index = () => {
         .cursor-blink::after {
           content: '|';
           animation: blink 1s step-end infinite;
-          color: #3B82F6;
+          color: #C6F91F;
           margin-left: 2px;
           font-weight: 300;
         }
@@ -730,7 +727,7 @@ export const Index = () => {
         .particle {
           position: absolute;
           width: 3px; height: 3px;
-          background: rgba(59,130,246,0.6);
+          background: rgba(198,249,31,0.6);
           border-radius: 50%;
           animation: particle-float 6s ease-in-out infinite;
         }
@@ -745,7 +742,7 @@ export const Index = () => {
           position: absolute;
           bottom: -2px; left: 0;
           width: 0; height: 1px;
-          background: #3B82F6;
+          background: #C6F91F;
           transition: width 0.3s ease;
         }
         .link-underline:hover::after { width: 100%; }
@@ -753,15 +750,18 @@ export const Index = () => {
         /* 分隔线渐变 */
         .divider-gradient {
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent);
+          background: linear-gradient(90deg, transparent, rgba(198,249,31,0.3), transparent);
         }
 
         /* Logo光环 */
         @keyframes logo-halo {
-          0%, 100% { box-shadow: 0 0 40px rgba(59,130,246,0.15), 0 0 80px rgba(59,130,246,0.08); }
-          50% { box-shadow: 0 0 60px rgba(59,130,246,0.25), 0 0 120px rgba(59,130,246,0.12); }
+          0%, 100% { box-shadow: 0 0 40px rgba(198,249,31,0.15), 0 0 80px rgba(198,249,31,0.08); }
+          50% { box-shadow: 0 0 60px rgba(198,249,31,0.3), 0 0 120px rgba(198,249,31,0.12); }
         }
-        .logo-halo { animation: logo-halo 4s ease-in-out infinite; }
+        .logo-halo { 
+          animation: logo-halo 4s ease-in-out infinite;
+          border-radius: 40px;
+         }
 
         /* 进度条闪光 */
         @keyframes shimmer {
