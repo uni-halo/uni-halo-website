@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/logo.png";
 import {
   Mail,
@@ -20,6 +20,7 @@ export const Index = () => {
   >([]);
   const [toastId, setToastId] = useState(0);
   const [navScrolled, setNavScrolled] = useState(false);
+  const cursorLightRef = useRef<HTMLDivElement>(null);
 
   // 滚动后给导航栏加一层遮罩，保证文字在光晕前依然清晰
   useEffect(() => {
@@ -27,6 +28,47 @@ export const Index = () => {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // 鼠标跟随光：用 rAF 做插值缓动，直接改 transform 避免每帧 setState 触发重渲染
+  useEffect(() => {
+    const el = cursorLightRef.current;
+    if (!el) return;
+
+    // 触屏设备 / 减少动效偏好下不启用
+    if (
+      window.matchMedia("(hover: none)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+    let raf = 0;
+
+    const onMove = (e: MouseEvent) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    };
+
+    const tick = () => {
+      // 缓动系数越小越"拖尾"
+      currentX += (targetX - currentX) * 0.12;
+      currentY += (targetY - currentY) * 0.12;
+      el.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+      raf = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   /**
@@ -49,6 +91,13 @@ export const Index = () => {
  
   return (
     <div className="min-h-screen bg-[#05080A] text-white overflow-hidden relative">
+      {/* 鼠标跟随光：小号动态光斑，缓动跟随指针 */}
+      <div
+        ref={cursorLightRef}
+        className="cursor-light"
+        aria-hidden="true"
+      />
+
       {/* 背景网格 */}
       <div className="fixed inset-0 bg-grid pointer-events-none"></div>
 
@@ -647,6 +696,40 @@ export const Index = () => {
         }
         .ripple-ring-delay { animation-delay: 1.3s; }
         .ripple-ring-delay2 { animation-delay: 2.6s; }
+
+        /* ===== 鼠标跟随光 ===== */
+        /* 小号品牌色光斑，比主光晕小很多；transform 由 JS 每帧写入（translate3d 走合成层） */
+        .cursor-light {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 260px;
+          height: 260px;
+          border-radius: 9999px;
+          pointer-events: none;
+          z-index: 9999;
+          mix-blend-mode: screen;
+          will-change: transform;
+          opacity: 0;
+          animation: cursor-light-in 0.6s ease-out 0.4s forwards,
+                     rainbow 8s linear infinite;
+          background-image: radial-gradient(
+            circle,
+            var(--rainbow-prev) 0%,
+            var(--rainbow-next) 45%,
+            transparent 72%
+          );
+          filter: blur(42px);
+        }
+
+        @keyframes cursor-light-in {
+          to { opacity: 0.42; }
+        }
+
+        /* 触屏 / 禁用动效：直接隐藏，避免留下一个静止光斑 */
+        @media (hover: none), (prefers-reduced-motion: reduce) {
+          .cursor-light { display: none; }
+        }
 
         /* 浮动动画 */
         @keyframes float {
