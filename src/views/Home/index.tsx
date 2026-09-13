@@ -217,7 +217,7 @@ export const Index = () => {
       </nav>
 
       {/* 主内容 */}
-      <main className="relative z-10 min-h-[90vh] flex flex-col items-center justify-center px-6 pt-16">
+      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-16">
         {/* 顶部打光：光从页面上方照下，向下逐渐铺开 */}
         <div
           className="absolute inset-0 -mt-16 pointer-events-none flex items-center justify-center overflow-hidden"
@@ -358,7 +358,7 @@ export const Index = () => {
         </p>
 
         {/* 链接区域 */}
-        <div className="fade-in-up delay-4 flex flex-wrap items-center justify-center gap-4 mb-16">
+        <div className="fade-in-up delay-4 flex flex-wrap items-center justify-center gap-4 mb-6">
           {/* 仓库链接 */}
           <a
             href="https://github.com/uni-halo"
@@ -450,7 +450,7 @@ export const Index = () => {
         </div>
 
         {/* 进度/状态条 */}
-        <div className="hidden fade-in-up delay-5 w-full max-w-md mb-16">
+        <div className="fade-in-up delay-5 w-full max-w-md mb-16">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium">
               开发进度
@@ -489,7 +489,7 @@ export const Index = () => {
             </div>
           </div>
           <div className="flex items-center justify-between mt-2">
-            <span className="text-[10px] text-white/20">最后更新：2025-01</span>
+            <span className="text-[10px] text-white/20">最后更新：2026-09</span>
             <span className="text-[10px] text-white/20 cursor-blink">
               准备发布
             </span>
@@ -620,7 +620,7 @@ export const Index = () => {
         <button
           type="button"
           onClick={scrollToShowcase}
-          className="fade-in-up delay-6 group flex flex-col items-center gap-2 mt-14 cursor-pointer"
+          className="absolute left-1/2 -translate-x-1/2 bottom-4 fade-in-up delay-6 group flex flex-col items-center gap-2 mt-14 cursor-pointer"
           aria-label="向下滚动查看功能预览"
         >
           <span

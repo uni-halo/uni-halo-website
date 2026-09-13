@@ -323,7 +323,7 @@ export const ShowcaseSection = () => {
 
         {/* 主舞台：左预览 + 右全部页面 */}
         <div
-          className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_428px] gap-[26px] items-start p-6 rounded-[20px]"
+          className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_428px] gap-[26px] items-start p-12 rounded-[20px]"
           style={{
             border: "1px solid rgba(198,249,31,0.14)",
             background:
