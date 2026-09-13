@@ -210,7 +210,7 @@ export const Index = () => {
 
       {/* 主内容 */}
       <main className="relative z-10 min-h-[90vh] flex flex-col items-center justify-center px-6 pt-16">
-        {/* 水波纹装饰 */}
+        {/* 顶部打光：光从页面上方照下，向下逐渐铺开；三圈水波纹与光束同圆心 */}
         <div
           className="absolute pointer-events-none"
           style={{
@@ -219,6 +219,7 @@ export const Index = () => {
             transform: "translate(-50%, -30%)",
           }}
         >
+          <div className="top-beam" />
           <div
             className="ripple-ring absolute rounded-full border border-[#C6F91F]/20"
             style={{
@@ -691,11 +692,73 @@ export const Index = () => {
           0% { transform: scale(0.8); opacity: 0.4; }
           100% { transform: scale(2.5); opacity: 0; }
         }
+
+        /* 顶部打光：从视口上沿照下的光束，像舞台顶灯一样向下铺开。
+           关键点——
+           1) 顶部贴住视口上沿，高度不低于 60vh；
+           2) 光形上窄下宽（光源在上方收束、向下逐渐铺开）；
+           3) 不使用硬边 clip-path，改由 radial / linear 渐变 + blur 塑形，
+              让它成为一片没有边界的柔光，而不是一个可见的几何块；
+           4) 顶端最亮、向下渐弱，模拟顶灯自上而下的照亮感。 */
+        .top-beam {
+          position: absolute;
+          left: 50%;
+          top: 0;
+          /* 高度：不低于视口高度的 60% */
+          width: 1600px;
+          height: 78vh;
+          min-height: 60vh;
+          margin-left: -800px;
+          pointer-events: none;
+          /* 上窄下宽：横向为「中间亮、两侧全透明」的柔光柱，
+             纵向顶端最亮、向下逐渐衰减，天然形成向下铺开的光形 */
+          background:
+            radial-gradient(
+              58% 100% at 50% 0%,
+              rgba(198, 249, 31, 0.20) 0%,
+              rgba(198, 249, 31, 0.10) 34%,
+              rgba(198, 249, 31, 0.035) 62%,
+              rgba(198, 249, 31, 0) 100%
+            ),
+            linear-gradient(
+              to bottom,
+              rgba(198, 249, 31, 0.13) 0%,
+              rgba(198, 249, 31, 0.055) 38%,
+              rgba(198, 249, 31, 0.018) 68%,
+              rgba(198, 249, 31, 0) 100%
+            );
+          /* 整体柔化，彻底消除任何可见边界 */
+          filter: blur(48px);
+          mix-blend-mode: screen;
+          animation: beam-breathe 6s ease-in-out infinite;
+        }
+
+        /* 光束亮度呼吸，模拟真实灯光的轻微起伏 */
+        @keyframes beam-breathe {
+          0%, 100% { opacity: 0.82; }
+          50%      { opacity: 1; }
+        }
+
+        /* 三圈水波纹：向外扩散，用 animation-delay 错开节奏 */
         .ripple-ring {
           animation: ripple 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
         }
         .ripple-ring-delay { animation-delay: 1.3s; }
         .ripple-ring-delay2 { animation-delay: 2.6s; }
+
+        /* 小屏收敛：光束收窄，避免溢出撑出横向滚动条 */
+        @media (max-width: 640px) {
+          .top-beam {
+            width: 860px;
+            margin-left: -430px;
+            filter: blur(38px);
+          }
+        }
+
+        /* 减少动效偏好：关闭光束呼吸 */
+        @media (prefers-reduced-motion: reduce) {
+          .top-beam { animation: none; }
+        }
 
         /* ===== 鼠标跟随光 ===== */
         /* 小号品牌色光斑，比主光晕小很多；transform 由 JS 每帧写入（translate3d 走合成层） */
