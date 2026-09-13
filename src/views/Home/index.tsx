@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/logo.png";
+import { ShowcaseSection } from "./ShowcaseSection";
 import {
   Mail,
   ArrowUpRight,
@@ -609,6 +610,9 @@ export const Index = () => {
         </div>
       </main>
 
+      {/* 功能模块展示：左预览 + 右模块切换 */}
+      <ShowcaseSection />
+
       {/* Footer */}
       <footer className="relative z-10 pb-8 pt-4">
         <div className="divider-gradient max-w-3xl mx-auto mb-6"></div>
@@ -1010,6 +1014,12 @@ export const Index = () => {
         }
         .toast-enter { animation: toast-in 0.3s ease-out both; }
         .toast-exit { animation: toast-out 0.25s ease-in both; }
+
+        /* 功能模块展示的页面列表滚动条 */
+        .showcase-scroll { scrollbar-width: thin; scrollbar-color: rgba(198,249,31,0.24) transparent; }
+        .showcase-scroll::-webkit-scrollbar { width: 6px; }
+        .showcase-scroll::-webkit-scrollbar-thumb { background: rgba(198,249,31,0.22); border-radius: 999px; }
+        .showcase-scroll::-webkit-scrollbar-track { background: transparent; }
       `}</style>
     </div>
   );
