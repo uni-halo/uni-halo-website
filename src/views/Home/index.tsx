@@ -8,7 +8,6 @@ import {
   Smartphone,
   Zap,
   Code2,
-  Rss,
   GitFork,
 } from "lucide-react";
 
@@ -45,14 +44,6 @@ export const Index = () => {
   const handleDocsClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     showToast("文档正在编写中，敬请期待", "info");
-  };
-
-  /**
-   * 处理联系按钮点击
-   */
-  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    showToast("联系方式即将公布", "info");
   };
 
   return (

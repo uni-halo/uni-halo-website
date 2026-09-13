@@ -1,8 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { useFancybox } from '@/hooks/useFancybox'
-import { Footer } from './Footer'
-import { NavBar } from './NavBar'
 
 export const Layout = () => {
   const location = useLocation()
