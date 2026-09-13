@@ -43,7 +43,7 @@ export const Index = () => {
    */
   const handleDocsClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    showToast("文档正在编写中，敬请期待", "info");
+    window.open("https://uni-halo-doc.ialley.cn/", "_blank");
   };
 
   return (
@@ -257,6 +257,7 @@ export const Index = () => {
               color: "#C6F91F",
               boxShadow: "0 0 20px rgba(198,249,31,0.08)",
             }}
+            onClick={() => showToast('v3.x release 即将上线', 'info')}
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C6F91F] opacity-75"></span>
@@ -378,7 +379,7 @@ export const Index = () => {
 
           {/* 文档链接 */}
           <a
-            href="https://uni-halo.ialley.cn/docs"
+            href="https://uni-halo-doc.ialley.cn"
             id="docsBtn"
             onClick={handleDocsClick}
             className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
