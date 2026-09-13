@@ -210,43 +210,20 @@ export const Index = () => {
 
       {/* 主内容 */}
       <main className="relative z-10 min-h-[90vh] flex flex-col items-center justify-center px-6 pt-16">
-        {/* 顶部打光：光从页面上方照下，向下逐渐铺开；三圈水波纹与光束同圆心 */}
+        {/* 顶部打光：光从页面上方照下，向下逐渐铺开 */}
         <div
-          className="absolute pointer-events-none"
-          style={{
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -30%)",
-          }}
+          className="absolute inset-0 -mt-16 pointer-events-none flex items-center justify-center overflow-hidden"
+          aria-hidden="true"
         >
-          <div className="top-beam" />
-          <div
-            className="ripple-ring absolute rounded-full border border-[#C6F91F]/20"
-            style={{
-              width: "300px",
-              height: "300px",
-              top: "-150px",
-              left: "-150px",
-            }}
-          ></div>
-          <div
-            className="ripple-ring ripple-ring-delay absolute rounded-full border border-[#C6F91F]/15"
-            style={{
-              width: "300px",
-              height: "300px",
-              top: "-150px",
-              left: "-150px",
-            }}
-          ></div>
-          <div
-            className="ripple-ring ripple-ring-delay2 absolute rounded-full border border-[#C6F91F]/10"
-            style={{
-              width: "300px",
-              height: "300px",
-              top: "-150px",
-              left: "-150px",
-            }}
-          ></div>
+          <div className="stage-center">
+            {/* 顶灯光束：上窄下宽、模糊无边界，贴住视口上沿 */}
+            <div className="top-beam" />
+
+            {/* 水波纹：三圈同圆心向外扩散 */}
+            <div className="ripple-ring ripple-ring-1" />
+            <div className="ripple-ring ripple-ring-2" />
+            <div className="ripple-ring ripple-ring-3" />
+          </div>
         </div>
 
         {/* 粒子装饰 */}
@@ -693,6 +670,15 @@ export const Index = () => {
           100% { transform: scale(2.5); opacity: 0; }
         }
 
+        /* ===== 居中光晕舞台 ===== */
+        /* 动态背景色、光柱、水波纹共用同一圆心：舞台自身 0 尺寸，子元素以它为中心绝对定位，
+           天然对齐 main 的正中（flex 居中），不再受 Logo/文字高度影响。 */
+        .stage-center {
+          position: relative;
+          width: 0;
+          height: 0;
+        }
+
         /* 顶部打光：从视口上沿照下的光束，像舞台顶灯一样向下铺开。
            关键点——
            1) 顶部贴住视口上沿，高度不低于 60vh；
@@ -739,12 +725,21 @@ export const Index = () => {
           50%      { opacity: 1; }
         }
 
-        /* 三圈水波纹：向外扩散，用 animation-delay 错开节奏 */
+        /* 三圈水波纹：与光晕同圆心，尺寸统一 300px，向外扩散 */
         .ripple-ring {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 300px;
+          height: 300px;
+          margin: -150px 0 0 -150px;
+          border-radius: 9999px;
+          border: 1px solid rgba(198, 249, 31, 0.2);
           animation: ripple 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
         }
-        .ripple-ring-delay { animation-delay: 1.3s; }
-        .ripple-ring-delay2 { animation-delay: 2.6s; }
+        .ripple-ring-1 { animation-delay: 0s;   border-color: rgba(198, 249, 31, 0.20); }
+        .ripple-ring-2 { animation-delay: 1.3s; border-color: rgba(198, 249, 31, 0.15); }
+        .ripple-ring-3 { animation-delay: 2.6s; border-color: rgba(198, 249, 31, 0.10); }
 
         /* 小屏收敛：光束收窄，避免溢出撑出横向滚动条 */
         @media (max-width: 640px) {
