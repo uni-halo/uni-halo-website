@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "@/assets/logo.png";
 import {
   Mail,
@@ -19,6 +19,15 @@ export const Index = () => {
     Array<{ id: number; message: string; type: "info" | "success" | "warning" }>
   >([]);
   const [toastId, setToastId] = useState(0);
+  const [navScrolled, setNavScrolled] = useState(false);
+
+  // 滚动后给导航栏加一层遮罩，保证文字在光晕前依然清晰
+  useEffect(() => {
+    const onScroll = () => setNavScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   /**
    * 显示Toast消息
@@ -71,14 +80,11 @@ export const Index = () => {
         />
       </div>
 
-      {/* 导航栏 */}
+      {/* 导航栏：透明磨砂玻璃 */}
       <nav
-        className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center px-6"
-        style={{
-          background: "rgba(5,8,10,0.7)",
-          backdropFilter: "blur(24px)",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
-        }}
+        className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center px-6 nav-frost${
+          navScrolled ? " nav-scrolled" : ""
+        }`}
       >
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -804,6 +810,40 @@ export const Index = () => {
           .logo-aurora,
           .logo-aurora-blob,
           .logo-aurora-blob--alt { filter: blur(40px); }
+        }
+
+        /* ===== 顶部导航栏：透明磨砂玻璃 ===== */
+        /* 低不透明度底 + 大模糊，让页面底部颜色（Logo 光晕、装饰光斑）穿透可见。
+           原实现为 rgba(5,8,10,0.7)，接近实心遮挡，此处降到 0.18 并叠加 saturate 提亮穿透色。 */
+        .nav-frost {
+          background: rgba(5, 8, 10, 0.18);
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          backdrop-filter: blur(20px) saturate(180%);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          /* 顶部微亮描边，强化"玻璃边缘"质感 */
+          box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+          transition: background 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+        /* 滚动后略增不透明度，保证文字可读性 */
+        .nav-frost.nav-scrolled {
+          background: rgba(5, 8, 10, 0.42);
+          -webkit-backdrop-filter: blur(28px) saturate(180%);
+          backdrop-filter: blur(28px) saturate(180%);
+          border-bottom-color: rgba(255, 255, 255, 0.09);
+        }
+
+        /* 不支持 backdrop-filter 时回退为半透明深色，避免文字直接压在高亮光晕上 */
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+          .nav-frost { background: rgba(5, 8, 10, 0.82); }
+        }
+
+        /* 小屏加大模糊，避免移动端穿透过强导致文字难读 */
+        @media (max-width: 640px) {
+          .nav-frost {
+            background: rgba(5, 8, 10, 0.28);
+            backdrop-filter: blur(16px) saturate(160%);
+          }
         }
 
         /* 进度条闪光 */
