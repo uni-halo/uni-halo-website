@@ -4,7 +4,7 @@ import type { ShowcaseModule } from "@/types/showcase";
  * 功能模块展示数据
  *
  * 数据来源：
- * - 模块与页面清单：uni-halo 应用 src/pages.json 的真实注册页面（共 33 个）
+ * - 模块与页面清单：uni-halo 应用 src/pages.json 的真实注册页面（共 41 个）
  * - 截图：uni-halo-static 仓库 screenshots/app/v3.x/{key}.png（走 jsDelivr CDN）
  *
  * 补图约定：按页面 key 命名放入 v3.x 目录即可自动生效，无需改动代码。
@@ -219,7 +219,7 @@ export const showcaseModules: ShowcaseModule[] = [
     name: "互动与发现",
     icon: "heart",
     isTab: false,
-    desc: "恋爱日记、投票、数据看板等内容型模块",
+    desc: "恋爱日记（相册支持密码锁定）、投票、数据看板等内容型模块",
     pages: [
       {
         key: "love",
@@ -282,7 +282,7 @@ export const showcaseModules: ShowcaseModule[] = [
       {
         key: "login",
         name: "登录",
-        desc: "账号登录",
+        desc: "账号密码登录 · 微信一键登录",
         path: "pages/auth/login",
         icon: "user",
       },
@@ -291,6 +291,13 @@ export const showcaseModules: ShowcaseModule[] = [
         name: "注册",
         desc: "账号注册",
         path: "pages/auth/register",
+        icon: "user",
+      },
+      {
+        key: "wechat-bind",
+        name: "绑定微信",
+        desc: "已登录用户绑定微信 / 扫码绑定",
+        path: "pages/auth/wechat-bind",
         icon: "user",
       },
       {
@@ -304,8 +311,45 @@ export const showcaseModules: ShowcaseModule[] = [
         key: "maintenance",
         name: "维护中",
         desc: "站点维护提示页",
-        path: "pages-blog/maintenance/maintenance",
+        path: "pages/maintenance/maintenance",
         icon: "tool",
+      },
+    ],
+  },
+  {
+    id: "admin",
+    name: "移动端管理",
+    icon: "settings",
+    isTab: false,
+    desc: "管理员在移动端直接管理恋爱相册（密码锁定）、恋爱清单、恋爱故事与瞬间",
+    pages: [
+      {
+        key: "love-album-manage",
+        name: "相册管理",
+        desc: "恋爱相册的新增 / 编辑 / 删除",
+        path: "pages-admin/love/album-manage",
+        icon: "image",
+      },
+      {
+        key: "love-daily-manage",
+        name: "日记管理",
+        desc: "恋爱日记的内容维护",
+        path: "pages-admin/love/daily-manage",
+        icon: "doc",
+      },
+      {
+        key: "love-story-manage",
+        name: "故事管理",
+        desc: "恋爱故事的创建与编辑",
+        path: "pages-admin/love/story-manage",
+        icon: "book",
+      },
+      {
+        key: "moment-manage",
+        name: "瞬间管理",
+        desc: "瞬间的发布与内容管理",
+        path: "pages-admin/moment-manage/moment-manage",
+        icon: "spark",
       },
     ],
   },

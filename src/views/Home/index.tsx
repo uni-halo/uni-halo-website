@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/logo.png";
 import { ShowcaseSection } from "./ShowcaseSection";
+import { HighlightSection } from "./HighlightSection";
 import {
   Mail,
   ArrowUpRight,
@@ -354,6 +355,8 @@ export const Index = () => {
           <span className="text-[#0A7FF3] font-medium">Halo</span>{" "}
           构建的多端开源博客/内容客户端，
           <br className="hidden sm:block" />
+          支持{" "}
+          <span className="text-[#C6F91F] font-medium">40+</span> 功能，
           优雅、轻量、跨平台，让你的内容触达每一个角落。
         </p>
 
@@ -644,6 +647,9 @@ export const Index = () => {
           />
         </button>
       </main>
+
+      {/* 亮点功能展示：恋爱日记 / 登录管理 */}
+      <HighlightSection />
 
       {/* 功能模块展示：左预览 + 右全部页面 */}
       <div ref={showcaseRef} className="pt-20 sm:pt-28">
