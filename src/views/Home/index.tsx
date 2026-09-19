@@ -659,6 +659,7 @@ export const Index = () => {
       {/* Footer */}
       <footer className="relative z-10 pb-8 pt-4">
         <div className="mb-4 text-center text-xs text-[#c6f91f]">❤️开源不易·用爱发电❤️</div>
+        <div className="mb-4 text-center text-xs text-[#f83856]">—— 视尔唯一·心之所向 ——</div>
         <div className="divider-gradient max-w-3xl mx-auto mb-6"></div>
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-center gap-4">
           <div
