@@ -4,13 +4,16 @@ import type { ShowcaseModule } from "@/types/showcase";
  * 功能模块展示数据
  *
  * 数据来源：
- * - 模块与页面清单：uni-halo 应用 src/pages.json 的真实注册页面（共 41 个）
- * - 截图：uni-halo-static 仓库 screenshots/app/v3.x/{key}.png（走 jsDelivr CDN）
+ * - 模块与页面清单：uni-halo 应用 src/pages.json 的真实注册页面
+ * - 截图：uni-halo-static 仓库 screenshots/app/v3.x/（走 jsDelivr CDN）
+ * - 截图文件名清单（唯一事实来源）：
+ *   https://github.com/uni-halo/uni-halo-static/blob/main/screenshots/app/v3.x/README.md
  *
- * 补图约定：按页面 key 命名放入 v3.x 目录即可自动生效，无需改动代码。
+ * 补图约定：每个页面通过 screenshot 字段对接真实截图文件名，
+ * 按文件名放入 v3.x 目录即可自动生效，无需改动代码。
  */
 
-/** 截图资源基址（jsDelivr CDN），按页面 key 拼接文件名 */
+/** 截图资源基址（jsDelivr CDN），按 screenshot 文件名拼接 */
 export const SHOWCASE_CDN_BASE =
   "https://gcore.jsdelivr.net/gh/uni-halo/uni-halo-static@latest/screenshots/app/v3.x/";
 
@@ -28,6 +31,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "轮播图 · 快捷导航 · 分类入口 · 公告",
         path: "pages/tabbar/home/home",
         icon: "home",
+        screenshot: "首页.png",
       },
       {
         key: "banner-detail",
@@ -35,6 +39,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "首页轮播点击后的落地页",
         path: "pages-blog/banner-detail/banner-detail",
         icon: "image",
+        screenshot: "轮播详情.png",
       },
       {
         key: "moment-detail",
@@ -42,6 +47,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "单条瞬间的大图与详情",
         path: "pages-blog/moment-detail/moment-detail",
         icon: "spark",
+        screenshot: "瞬间详情.png",
       },
       {
         key: "search",
@@ -49,6 +55,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "关键词搜索文章 / 瞬间 / 图库",
         path: "pages-blog/search/search",
         icon: "search",
+        screenshot: "搜索.png",
       },
       {
         key: "notice",
@@ -56,6 +63,15 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "站点公告列表",
         path: "pages-blog/notice/notice",
         icon: "bell",
+        screenshot: "公告中心.png",
+      },
+      {
+        key: "notice-detail",
+        name: "公告详情",
+        desc: "单条公告的正文内容",
+        path: "pages-blog/notice/detail",
+        icon: "bell",
+        screenshot: "公告详情.png",
       },
     ],
   },
@@ -72,6 +88,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "全部分类聚合，支持筛选与订阅",
         path: "pages/tabbar/category/category",
         icon: "grid",
+        screenshot: "分类.png",
       },
       {
         key: "category-articles",
@@ -79,6 +96,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "某分类下的文章聚合",
         path: "pages-blog/category-articles/category-articles",
         icon: "grid",
+        screenshot: "分类详情.png",
       },
       {
         key: "articles",
@@ -86,6 +104,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "卡片流布局，封面 / 摘要 / 标签",
         path: "pages-blog/articles/articles",
         icon: "doc",
+        screenshot: "文章列表.png",
       },
       {
         key: "article-detail",
@@ -93,6 +112,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "富文本渲染 · 版权声明 · 评论 · 投票",
         path: "pages-blog/article-detail/article-detail",
         icon: "doc",
+        screenshot: "文章详情.png",
       },
       {
         key: "archives",
@@ -100,6 +120,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "按时间轴归档，快速定位",
         path: "pages-blog/archives/archives",
         icon: "clock",
+        screenshot: "归档.png",
       },
       {
         key: "tags",
@@ -107,6 +128,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "全部标签云聚合",
         path: "pages-blog/tags/tags",
         icon: "tag",
+        screenshot: "标签.png",
       },
       {
         key: "tag-detail",
@@ -114,6 +136,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "某标签下的文章列表",
         path: "pages-blog/tag-detail/tag-detail",
         icon: "tag",
+        screenshot: "标签详情.png",
       },
     ],
   },
@@ -130,6 +153,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "瀑布流相册，支持查看大图",
         path: "pages/tabbar/gallery/gallery",
         icon: "image",
+        screenshot: "图库.png",
       },
       {
         key: "favorites",
@@ -137,6 +161,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "收藏的文章 / 瞬间 / 图集",
         path: "pages-blog/favorites/favorites",
         icon: "star",
+        screenshot: "收藏.png",
       },
     ],
   },
@@ -153,13 +178,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "说说式动态流，图文混排",
         path: "pages/tabbar/moments/moments",
         icon: "spark",
-      },
-      {
-        key: "notice-detail",
-        name: "公告详情",
-        desc: "单条公告的正文内容",
-        path: "pages-blog/notice/detail",
-        icon: "bell",
+        screenshot: "瞬间.png",
       },
     ],
   },
@@ -176,6 +195,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "博主信息 · 社交入口 · 登录入口",
         path: "pages/tabbar/blogger/blogger",
         icon: "user",
+        screenshot: "博主.png",
       },
       {
         key: "user-popup",
@@ -183,6 +203,15 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "登录后的用户弹层，聚合个人中心与管理入口",
         path: "src/components/uh-user-popup",
         icon: "panel",
+        screenshot: "用户侧边栏.png",
+      },
+      {
+        key: "my-home",
+        name: "我的主页",
+        desc: "博主 tab 内的个人主页（登录态）",
+        path: "pages/tabbar/blogger/blogger",
+        icon: "user",
+        screenshot: "我的主页.png",
       },
       {
         key: "my-profile",
@@ -190,6 +219,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "个人资料的查看与编辑",
         path: "pages-blog/my-profile/my-profile",
         icon: "user",
+        screenshot: "个人资料.png",
       },
       {
         key: "user-profile",
@@ -197,6 +227,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "查看他人用户主页",
         path: "pages-blog/user-profile/user-profile",
         icon: "user",
+        screenshot: "用户主页.png",
       },
       {
         key: "about-project",
@@ -204,6 +235,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "项目介绍与技术栈",
         path: "pages-blog/about-project/about-project",
         icon: "book",
+        screenshot: "关于项目.png",
       },
       {
         key: "setting",
@@ -211,6 +243,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "主题 / 字号 / 缓存等本地偏好",
         path: "pages-blog/setting/setting",
         icon: "settings",
+        screenshot: "偏好设置.png",
       },
       {
         key: "contact",
@@ -218,6 +251,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "联系方式与留言入口",
         path: "pages-blog/contact/contact",
         icon: "mail",
+        screenshot: "联系博主.png",
       },
       {
         key: "friend-links",
@@ -225,6 +259,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "友链列表与申请入口",
         path: "pages-blog/friend-links/friend-links",
         icon: "link",
+        screenshot: "友情链接.png",
       },
       {
         key: "website",
@@ -232,6 +267,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "web-view 承载外部页面",
         path: "pages-blog/website/website",
         icon: "globe",
+        screenshot: "内嵌网页.png",
       },
     ],
   },
@@ -248,13 +284,15 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "日记入口与时间流",
         path: "pages-blog/love/love",
         icon: "heart",
+        screenshot: "恋爱日记.png",
       },
       {
         key: "love-album",
         name: "恋爱相册",
-        desc: "情侣合照墙",
+        desc: "情侣合照墙（支持密码锁定）",
         path: "pages-blog/love/album",
         icon: "image",
+        screenshot: "恋爱相册.png",
       },
       {
         key: "love-list",
@@ -262,13 +300,15 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "一起想做的事清单",
         path: "pages-blog/love/list",
         icon: "star",
+        screenshot: "恋爱清单.png",
       },
       {
         key: "love-stories",
-        name: "恋爱故事",
+        name: "我们的故事",
         desc: "长文故事连载",
         path: "pages-blog/love/stories",
         icon: "book",
+        screenshot: "恋爱故事.png",
       },
       {
         key: "votes",
@@ -276,6 +316,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "全部投票活动列表",
         path: "pages-blog/votes/votes",
         icon: "vote",
+        screenshot: "投票中心.png",
       },
       {
         key: "vote-detail",
@@ -283,6 +324,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "选项投票与实时结果",
         path: "pages-blog/vote-detail/vote-detail",
         icon: "vote",
+        screenshot: "投票详情.png",
       },
       {
         key: "data-visual",
@@ -290,6 +332,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "站点数据可视化图表",
         path: "pages-blog/data-visual/data-visual",
         icon: "chart",
+        screenshot: "数据看板.png",
       },
     ],
   },
@@ -298,7 +341,7 @@ export const showcaseModules: ShowcaseModule[] = [
     name: "账号与系统",
     icon: "settings",
     isTab: false,
-    desc: "登录注册、免责声明、维护页等系统页",
+    desc: "登录注册、微信绑定、免责声明、维护页等系统页",
     pages: [
       {
         key: "login",
@@ -306,6 +349,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "账号密码登录 · 微信一键登录",
         path: "pages/auth/login",
         icon: "user",
+        screenshot: "登录.png",
       },
       {
         key: "register",
@@ -313,13 +357,15 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "账号注册",
         path: "pages/auth/register",
         icon: "user",
+        screenshot: "注册.png",
       },
       {
         key: "wechat-bind",
-        name: "绑定微信",
+        name: "微信绑定",
         desc: "已登录用户绑定微信 / 扫码绑定",
         path: "pages/auth/wechat-bind",
         icon: "user",
+        screenshot: "微信绑定.png",
       },
       {
         key: "disclaimers",
@@ -327,13 +373,15 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "站点免责条款",
         path: "pages-blog/disclaimers/disclaimers",
         icon: "shield",
+        screenshot: "免责声明.png",
       },
       {
         key: "maintenance",
-        name: "维护中",
+        name: "维护模式",
         desc: "站点维护提示页",
         path: "pages/maintenance/maintenance",
         icon: "tool",
+        screenshot: "维护模式.png",
       },
     ],
   },
@@ -350,6 +398,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "恋爱相册的新增 / 编辑 / 删除",
         path: "pages-admin/love/album-manage",
         icon: "image",
+        screenshot: "相册管理.png",
       },
       {
         key: "love-daily-manage",
@@ -357,6 +406,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "恋爱日记的内容维护",
         path: "pages-admin/love/daily-manage",
         icon: "doc",
+        screenshot: "日记管理.png",
       },
       {
         key: "love-story-manage",
@@ -364,6 +414,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "恋爱故事的创建与编辑",
         path: "pages-admin/love/story-manage",
         icon: "book",
+        screenshot: "故事管理.png",
       },
       {
         key: "moment-manage",
@@ -371,6 +422,7 @@ export const showcaseModules: ShowcaseModule[] = [
         desc: "瞬间的发布与内容管理",
         path: "pages-admin/moment-manage/moment-manage",
         icon: "spark",
+        screenshot: "瞬间管理.png",
       },
     ],
   },

@@ -174,7 +174,7 @@ const Shot = ({
 
   return (
     <img
-      src={`${SHOWCASE_CDN_BASE}${page.key}.png`}
+      src={`${SHOWCASE_CDN_BASE}${encodeURIComponent(page.screenshot)}`}
       alt={page.name}
       loading="lazy"
       className={imgClassName}

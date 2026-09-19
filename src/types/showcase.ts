@@ -32,7 +32,7 @@ export type ShowcaseIconName =
 
 /** 单个页面 */
 export interface ShowcasePage {
-  /** 页面标识，同时作为截图文件名（v3.x/{key}.png） */
+  /** 页面标识 */
   key: string;
   /** 页面名称 */
   name: string;
@@ -42,6 +42,8 @@ export interface ShowcasePage {
   path: string;
   /** 占位图标 */
   icon: ShowcaseIconName;
+  /** 截图文件名（screenshots/app/v3.x/ 下的真实文件名，与 uni-halo-static 的 app/v3.x/README.md 清单对应） */
+  screenshot: string;
 }
 
 /** 一个功能模块 */

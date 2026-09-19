@@ -658,13 +658,17 @@ export const Index = () => {
 
       {/* Footer */}
       <footer className="relative z-10 pb-8 pt-4">
+        <div className="mb-4 text-center text-xs text-[#c6f91f]">❤️开源不易·用爱发电❤️</div>
         <div className="divider-gradient max-w-3xl mx-auto mb-6"></div>
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-center gap-4">
           <div
-            className="flex items-center gap-4 text-[11px]"
-            style={{ color: "rgba(255,255,255,0.25)" }}
+            className="flex items-center gap-2 text-xs text-gray-300"
           >
-            <span>小莫唐尼 © 2026 UNI HALO</span>
+            <span> 版权所有 © 2026  </span>
+            <a href="/" className="text-[#c6f91f]">UNI HALO</a>
+            <span>&</span>
+            <a href="https://www.xiaoxiaomo.cn/" target="_blank" rel="noopener noreferrer"
+            className="text-[#c6f91f]">小莫唐尼</a>
             <span>·</span>
             <span>All rights reserved</span>
           </div> 
