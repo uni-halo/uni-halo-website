@@ -453,7 +453,7 @@ export const Index = () => {
         </div>
 
         {/* 进度/状态条 */}
-        <div className="fade-in-up delay-5 w-full max-w-md mb-16">
+        <div className="hidden fade-in-up delay-5 w-full max-w-md mb-16">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium">
               开发进度

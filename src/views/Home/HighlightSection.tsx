@@ -32,9 +32,9 @@ export const HighlightSection = () => {
     {
       icon: ShieldCheck,
       title: "登录管理",
-      desc: "账号密码登录、注册、微信一键登录与绑定，登录后下发 Halo 原生 PAT 令牌，内置登录限流与 RBAC 权限控制。",
+      desc: "账号密码登录、注册、微信一键登录与绑定，登录后使用 Halo 原生令牌，内置登录限流，按角色控制可见内容。",
       color: "#C6F91F",
-      tags: ["账号密码登录", "微信一键登录", "注册与绑定", "PAT 令牌", "RBAC 权限"],
+      tags: ["账号密码登录", "微信一键登录", "注册与绑定", "按角色控制可见内容"],
       link: {
         label: "查看登录配置文档",
         href: "https://uni-halo-doc.ialley.cn/plugin/mobile-login",
