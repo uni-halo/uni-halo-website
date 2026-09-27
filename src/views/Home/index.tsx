@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/logo.png";
-import { ShowcaseSection } from "./ShowcaseSection";
+// import { ShowcaseSection } from "./ShowcaseSection"; // 原预览模块，暂时隐藏
+import { UiPreviewSection } from "./UiPreviewSection";
 import { HighlightSection } from "./HighlightSection";
 import {
   Mail,
@@ -25,6 +26,21 @@ export const Index = () => {
   const [navScrolled, setNavScrolled] = useState(false);
   const cursorLightRef = useRef<HTMLDivElement>(null);
   const showcaseRef = useRef<HTMLDivElement>(null);
+  /** 「体验」模式：点亮右上角按钮并让中间 logo 切换为公众号二维码（hover logo 与点击按钮联动） */
+  const [trialMode, setTrialMode] = useState(false);
+  /** 动态版本号：读取 uni-halo/uni-halo 仓库 package.json，失败回退 3.x */
+  const [appVersion, setAppVersion] = useState("3.x");
+
+  useEffect(() => {
+    fetch(
+      "https://raw.githubusercontent.com/uni-halo/uni-halo/main/package.json",
+    )
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.version) setAppVersion(data.version);
+      })
+      .catch(() => {});
+  }, []);
 
   // 滚动到功能预览模块
   const scrollToShowcase = () => {
@@ -167,7 +183,7 @@ export const Index = () => {
                 >
                   UNI HALO
                 </span>
-                <span className="text-[10px]">全新版本，即将发布</span>
+                <span className="text-[10px]">v3.x 跨平台全新架构</span>
               </div>
 
               <span
@@ -183,6 +199,28 @@ export const Index = () => {
             </div>
           </div>
           <div className="shrink-0 flex items-center gap-4">
+            {/* 「体验」按钮：点击点亮并切换中间 logo 为公众号二维码 */}
+            <button
+              type="button"
+              onClick={() => setTrialMode((prev) => !prev)}
+              className="text-xs font-medium px-3 py-1 rounded-md transition-all duration-300"
+              style={
+                trialMode
+                  ? {
+                      background: "#C6F91F",
+                      color: "#05080A",
+                      border: "1px solid #C6F91F",
+                      boxShadow: "0 0 25px rgba(198,249,31,0.35)",
+                    }
+                  : {
+                      background: "rgba(198,249,31,0.1)",
+                      color: "#c6f91f",
+                      border: "1px solid rgba(198,249,31,0.15)",
+                    }
+              }
+            >
+              扫码体验
+            </button>
             <span
                 className="text-xs font-medium px-3 py-1 rounded-md"
                 style={{
@@ -191,7 +229,7 @@ export const Index = () => {
                   border: "1px solid rgba(198,249,31,0.15)",
                 }}
               >
-                v3.x
+                v{appVersion}
               </span>
             <a
               href="https://github.com/uni-halo"
@@ -276,13 +314,27 @@ export const Index = () => {
               <div className="logo-aurora-blob logo-aurora-blob--alt" />
             </div>
 
-            {/* Logo容器（显式 z-10，确保压在光晕之上） */}
-            <div className="relative z-10 w-32 h-32 sm:w-40 sm:h-40">
-              <div className="bg-[#c6f91f] logo-halo absolute inset-0 overflow-hidden">
+            {/* Logo容器（显式 z-10，确保压在光晕之上；hover 或「体验」模式时切换为公众号二维码） */}
+            <div
+              className="relative z-10 w-32 h-32 sm:w-40 sm:h-40 group/logo cursor-pointer"
+              onMouseEnter={() => setTrialMode(true)}
+              onMouseLeave={() => setTrialMode(false)}
+            >
+              <div className="bg-[#c6f91f] rounded-full logo-halo box-border border-2 border-solid border-[#c6f91f] absolute inset-0 overflow-hidden">
                 <img
                   src={logo}
                   alt="UNI HALO"
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full object-cover rounded-full scale-[1.02] transition-opacity duration-300${
+                    trialMode ? " opacity-0" : ""
+                  }`}
+                />
+                {/* hover / 体验模式显示：GitHub 公众号二维码（uni-halo-static 仓库图床） */}
+                <img
+                  src="https://gcore.jsdelivr.net/gh/uni-halo/uni-halo-static@main/gh_qrcode.jpg"
+                  alt="UNI HALO 公众号二维码"
+                  className={`absolute inset-0 w-full h-full object-cover rounded-full transition-opacity duration-300${
+                    trialMode ? " opacity-100" : " opacity-0"
+                  }`}
                 />
               </div>
             </div>
@@ -299,13 +351,13 @@ export const Index = () => {
               color: "#C6F91F",
               boxShadow: "0 0 20px rgba(198,249,31,0.08)",
             }}
-            onClick={() => showToast('v3.x release 即将上线', 'info')}
+            onClick={() => showToast('v3.x 跨平台全新架构，现已发布', 'success')}
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C6F91F] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C6F91F]"></span>
             </span>
-            v3.x release
+            v3.x Apache-2.0
           </div>
         </div>
 
@@ -325,20 +377,33 @@ export const Index = () => {
 
         {/* 版本号 */}
         <div className="fade-in-up delay-2 mb-8 flex items-center gap-3">
-          <span className="text-xs text-white">全新版本，即将发布</span>
+          <span className="text-xs text-white">v3.x 跨平台全新架构，现已发布</span>
         </div>
 
+        {/* 插件市场链接（样式同原「访问仓库」实心按钮） */}
         <div className="fade-in-up mb-6">
           <a
-            href="https://uni-halo.ialley.cn"
+            href="https://www.halo.run/store/apps/app-aukgwe3y"
             target="_blank"
             rel="noopener"
-            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
+            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-semibold transition-all duration-300"
             style={{
-              background: "rgba(198,249,31,0.1)",
-              border: "1px solid rgba(198,249,31,0.25)",
-              color: "#C6F91F",
-              boxShadow: "0 0 20px rgba(198,249,31,0.06)",
+              background: "#C6F91F",
+              color: "#05080A",
+              boxShadow:
+                "0 0 25px rgba(198,249,31,0.25), 0 4px 16px rgba(0,0,0,0.3)",
+            }}
+            onMouseEnter={(e) => {
+              const target = e.currentTarget as HTMLElement;
+              target.style.transform = "translateY(-2px) scale(1.02)";
+              target.style.boxShadow =
+                "0 0 45px rgba(198,249,31,0.45), 0 8px 24px rgba(0,0,0,0.35)";
+            }}
+            onMouseLeave={(e) => {
+              const target = e.currentTarget as HTMLElement;
+              target.style.transform = "translateY(0) scale(1)";
+              target.style.boxShadow =
+                "0 0 25px rgba(198,249,31,0.25), 0 4px 16px rgba(0,0,0,0.3)";
             }}
           >
             Halo 插件市场
@@ -367,24 +432,23 @@ export const Index = () => {
             href="https://github.com/uni-halo"
             target="_blank"
             rel="noopener"
-            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-semibold transition-all duration-300"
+            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-medium transition-all duration-300"
             style={{
-              background: "#C6F91F",
-              color: "#05080A",
-              boxShadow:
-                "0 0 25px rgba(198,249,31,0.25), 0 4px 16px rgba(0,0,0,0.3)",
+              background: "rgba(198,249,31,0.1)",
+              border: "1px solid rgba(198,249,31,0.25)",
+              color: "#C6F91F",
             }}
             onMouseEnter={(e) => {
               const target = e.currentTarget as HTMLElement;
+              target.style.background = "rgba(198,249,31,0.15)";
               target.style.transform = "translateY(-2px) scale(1.02)";
-              target.style.boxShadow =
-                "0 0 45px rgba(198,249,31,0.45), 0 8px 24px rgba(0,0,0,0.35)";
+              target.style.boxShadow = "0 0 35px rgba(198,249,31,0.2)";
             }}
             onMouseLeave={(e) => {
               const target = e.currentTarget as HTMLElement;
+              target.style.background = "rgba(198,249,31,0.1)";
               target.style.transform = "translateY(0) scale(1)";
-              target.style.boxShadow =
-                "0 0 25px rgba(198,249,31,0.25), 0 4px 16px rgba(0,0,0,0.3)";
+              target.style.boxShadow = "none";
             }}
           >
             <GitFork className="w-4 h-4" />
@@ -493,9 +557,9 @@ export const Index = () => {
           </div>
           <div className="flex items-center justify-between mt-2">
             <span className="text-[10px] text-white/20">最后更新：2026-09</span>
-            <span className="text-[10px] text-white/20 cursor-blink">
-              准备发布
-            </span>
+              <span className="text-[10px] text-white/20 cursor-blink">
+                已发布
+              </span>
           </div>
         </div>
 
@@ -612,7 +676,7 @@ export const Index = () => {
               className="text-xs leading-relaxed"
               style={{ color: "rgba(255,255,255,0.4)" }}
             >
-              MIT 协议开源
+              Apache-2.0 协议开源
               <br />
               自由使用，社区驱动
             </p>
@@ -651,15 +715,22 @@ export const Index = () => {
       {/* 亮点功能展示：恋爱日记 / 登录管理 */}
       <HighlightSection />
 
-      {/* 功能模块展示：左预览 + 右全部页面 */}
+      {/* 功能模块展示（原预览模块，暂时隐藏，保留代码便于恢复）
       <div ref={showcaseRef} className="pt-20 sm:pt-28">
         <ShowcaseSection />
+      </div>
+      */}
+
+      {/* 界面预览：移植自文档站首页的 CustomUiPreview */}
+      <div ref={showcaseRef} className="pt-20 sm:pt-28">
+        <UiPreviewSection />
       </div>
 
       {/* Footer */}
       <footer className="relative z-10 pb-8 pt-4">
-        <div className="mb-4 text-center text-xs text-[#c6f91f]">❤️开源不易·用爱发电❤️</div>
-        <div className="mb-4 text-center text-xs text-[#f83856]">—— 视尔唯一·心之所向 ——</div>
+        <div className="mb-4 text-center text-xs text-[#F83755]">❤️用爱发电·免费开源❤️</div>
+        <div className="mb-4 text-center text-xs text-[#c6f91f]">—— 视尔唯一·心之所向 ——</div>
+        <div className="mb-4 text-center text-xs text-[#c6f91f]">Released under the Apache-2.0 License</div>
         <div className="divider-gradient max-w-3xl mx-auto mb-6"></div>
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-center gap-4">
           <div
@@ -923,7 +994,7 @@ export const Index = () => {
         }
         .logo-halo { 
           animation: logo-halo 4s ease-in-out infinite;
-          border-radius: 40px;
+          border-radius: 50%;
          }
 
         /* ===== Logo 背景效果：移植自文档站首页 hero logo ===== */
