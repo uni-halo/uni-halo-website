@@ -330,7 +330,7 @@ export const Index = () => {
                 />
                 {/* hover / 体验模式显示：GitHub 公众号二维码（uni-halo-static 仓库图床） */}
                 <img
-                  src="https://gcore.jsdelivr.net/gh/uni-halo/uni-halo-static@main/gh_qrcode.jpg"
+                  src="https://gcore.jsdelivr.net/gh/uni-halo/uni-halo-static/gh_qrcode.jpg"
                   alt="UNI HALO 公众号二维码"
                   className={`absolute inset-0 w-full h-full object-cover rounded-full transition-opacity duration-300${
                     trialMode ? " opacity-100" : " opacity-0"

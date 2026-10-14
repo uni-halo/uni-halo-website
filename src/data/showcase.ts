@@ -15,7 +15,7 @@ import type { ShowcaseModule } from "@/types/showcase";
 
 /** 截图资源基址（jsDelivr CDN），按 screenshot 文件名拼接 */
 export const SHOWCASE_CDN_BASE =
-  "https://gcore.jsdelivr.net/gh/uni-halo/uni-halo-static@latest/screenshots/app/v3.x/";
+  "https://gcore.jsdelivr.net/gh/uni-halo/uni-halo-static/screenshots/app/v3.x/";
 
 export const showcaseModules: ShowcaseModule[] = [
   {
